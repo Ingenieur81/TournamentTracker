@@ -8,7 +8,7 @@ alt="C# tutorial by Tim Corey" width="480" height="360" border="10" /></a>
 
 ## Purpose
 This repository is my introduction to programming in C# using .net and Visual Studio.
-Below is the planning of the application as described by the tutorial.
+Below is the planning stage of the application as described by the tutorial.
 
 ## Application requirements:
 1. Track games played and their outcome (who won).
@@ -75,24 +75,40 @@ Below is the planning of the application as described by the tutorial.
 - Texting (bonus, not part of the requirements)
  
 ## Mapping the data
-**First pass**: Determining names, or classes and properties
-**Second pass**: Determining datatypes of the properties
+**First pass**: Determining names
+**Second pass**: Determining datatypes
 
 | First pass: Data names | Second pass: Datatypes |
 | --- | --- |
-| **Team** | class |
+| **Team** | object |
 | TeamMembers | list<Person> |
 | TeamName | string |
 |   |   |
-| **Person** | class |
+| **Person** | object |
 | FirstName | string |
 | LastName | string |
 | EmailAddress  | string |
-| CellphoneNumber | string, not a number as such, no mathematical operations are performed |
+| CellphoneNumber | string *(not a number as such because no mathematical operations are performed)* |
 |   |   |
-| **Tournament** | class |
+| **Tournament** | object |
 | TournamentName | string |
 | EntryFee | decimal |
-| EnteredTeams | list<Teams> |
+| EnteredTeams | list<Team> |
 | Prizes | list<Prize> |
 | Rounds | list<list<MatchUp>> |
+|   |   |
+| **Prize** | object |
+| PlaceNumber | int |
+| PlaceName | string |
+| PlaceAmount | decimal |
+| PlacePercentage | double |
+|   |   |
+| **Matchup** | object |
+| Entries | list<MatchupEntry> |
+| Winner | Team |
+| MatchupRound | int |
+|   |   |
+| **MatchupEntry** | object |
+| TeamCompeting | Team |
+| Score | double |
+| ParentMatchup | Matchup |
