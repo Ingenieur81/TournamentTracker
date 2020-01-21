@@ -78,22 +78,22 @@ Below is the planning of the application as described by the tutorial.
 **First pass**: Determining names, or classes and properties
 **Second pass**: Determining datatypes of the properties
 
-|First pass |Second pass |
-|Data names |Datatypes |
-|---|---|
-|**Team**|class|
-|TeamMembers|list<Person>|
-|TeamName|string|
+| First pass | Second pass |
+| Data names | Datatypes |
+| --- | --- |
+| **Team** | class |
+| TeamMembers | list<Person> |
+| TeamName | string |
 |   |   |
-|**Person**|class|
-|FirstName|string|
-|LastName|string|
-|EmailAddress|string|
-|CellphoneNumber|string, not a number as such, no mathematical operations are performed|
+| **Person** | class |
+| FirstName | string |
+| LastName | string |
+| EmailAddress  | string |
+| CellphoneNumber | string, not a number as such, no mathematical operations are performed |
 |   |   |
-|**Tournament**|class|
-|TournamentName|string|
-|EntryFee|decimal|
-|EnteredTeams|list<Teams>|
-|Prizes|list<Prize>|
-|Rounds|list<list<MatchUp>>|
+| **Tournament** | class |
+| TournamentName | string |
+| EntryFee | decimal |
+| EnteredTeams | list<Teams> |
+| Prizes | list<Prize> |
+| Rounds | list<list<MatchUp>> |
