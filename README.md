@@ -78,8 +78,7 @@ Below is the planning of the application as described by the tutorial.
 **First pass**: Determining names, or classes and properties
 **Second pass**: Determining datatypes of the properties
 
-| First pass | Second pass |
-| Data names | Datatypes |
+| First pass: Data names | Second pass: Datatypes |
 | --- | --- |
 | **Team** | class |
 | TeamMembers | list<Person> |
