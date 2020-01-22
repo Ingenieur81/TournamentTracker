@@ -12,6 +12,11 @@ namespace TrackerUI
 {
     public partial class CreatePrizeForm : Form
     {
+        /// <summary>
+        /// Represents a form to create a new prize
+        /// for the tournament and add it to the prizes
+        /// list in the Create Tournament Form
+        /// </summary>
         public CreatePrizeForm()
         {
             InitializeComponent();

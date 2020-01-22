@@ -76,9 +76,10 @@ Below is the planning stage of the application as described by the tutorial.
  
 ## Mapping the data
 **First pass**: Determining names
+
 **Second pass**: Determining datatypes
 
-| First pass: Data names | Second pass: Datatypes |
+| First pass Data names | Second pass Datatypes |
 | --- | --- |
 | **Team** | object |
 | TeamMembers | list<Person> |
@@ -112,3 +113,5 @@ Below is the planning stage of the application as described by the tutorial.
 | TeamCompeting | Team |
 | Score | double |
 | ParentMatchup | Matchup |
+
+## Database design

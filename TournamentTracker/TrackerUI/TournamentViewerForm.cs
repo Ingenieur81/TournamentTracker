@@ -12,6 +12,11 @@ namespace TrackerUI
 {
     public partial class TournamentViewerForm : Form
     {
+        /// <summary>
+        /// Represents the form to view a tournament
+        /// and all of its elements, like rounds, teams,
+        /// scores, etc.
+        /// </summary>
         public TournamentViewerForm()
         {
             InitializeComponent();

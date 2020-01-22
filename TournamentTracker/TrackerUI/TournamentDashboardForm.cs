@@ -12,6 +12,10 @@ namespace TrackerUI
 {
     public partial class TournamentDashboardForm : Form
     {
+        /// <summary>
+        /// Represents the main dashboard which allows
+        /// loading and creating tournaments
+        /// </summary>
         public TournamentDashboardForm()
         {
             InitializeComponent();
