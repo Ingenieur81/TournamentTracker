@@ -115,3 +115,10 @@ Below is the planning stage of the application as described by the tutorial.
 | ParentMatchup | Matchup |
 
 ## Database design
+The database is designed as simple as possible for this application. Therefore, instead of using composite keys to create unique keys a surrogate key is used for each table to simplify the table design.
+
+The picture shows the design as used in the application.
+
+![alt text][DatabaseDesign]
+
+[DatabaseDesign]: DatabaseLayout.png "Database Table Design"
