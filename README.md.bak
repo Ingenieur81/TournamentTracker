@@ -100,8 +100,8 @@ Below is the planning stage of the application as described by the tutorial.
 | **Prize** | object |
 | PlaceNumber | int |
 | PlaceName | string |
-| PrizeAmount | decimal |
-| PrizePercentage | double |
+| PlaceAmount | decimal |
+| PlacePercentage | double |
 |   |   |
 | **Matchup** | object |
 | Entries | list<MatchupEntry> |
