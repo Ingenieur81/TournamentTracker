@@ -8,6 +8,7 @@ alt="C# tutorial by Tim Corey" width="480" height="360" border="10" /></a>
 
 ## Purpose
 This repository is my introduction to programming in C# using .net and Visual Studio.
+And also an introduction to SQL and databases.
 Below is the planning stage of the application as described by the tutorial.
 
 ## Application requirements:

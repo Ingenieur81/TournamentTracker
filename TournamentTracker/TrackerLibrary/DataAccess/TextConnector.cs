@@ -17,9 +17,7 @@ namespace TrackerLibrary.DataAccess
         /// <returns>The prize information, including the unique identifier</returns>
         public PrizeModel CreatePrize(PrizeModel model)
         {
-            model.Id = 1;
-
-            return model;
+            
         }
     }
 }

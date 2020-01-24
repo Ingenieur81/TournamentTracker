@@ -15,22 +15,22 @@ namespace TrackerLibrary
     /// </summary>
     public static class GlobalConfig
     {
-        public static List<IDataConnection> Connections { get; private set; } = new List<IDataConnection>();
+        public static IDataConnection Connection { get; private set; }
 
-        public static void InitializeConnections(bool database, bool textFiles)
+        public static void InitializeConnections(DatabaseType db)
         {
-            if (database)
+            // This could also be implemented as a switch
+            if (db == DatabaseType.Sql)
             {
-                // TODO: Implement the SQL connector properly
+                // This is the sql connection implemented using dapper
                 SqlConnector sql = new SqlConnector();
-                Connections.Add(sql);
+                Connection = sql;
             }
-
-            if (textFiles)
+            else if (db == DatabaseType.TextFile)
             {
                 // TODO: Implement the Text connector properly
                 TextConnector text = new TextConnector();
-                Connections.Add(text);
+                Connection = text;
             }
         }
 
