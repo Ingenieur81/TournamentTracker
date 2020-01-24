@@ -122,3 +122,37 @@ The picture shows the design as used in the application.
 ![alt text][DatabaseDesign]
 
 [DatabaseDesign]: DatabaseLayout.png "Database Table Design"
+
+## Saving Data
+Saving data to either a text file or a database or both is a tricky part of building an application. How do you know where to save the data?
+How can the code save to both types of storage without being "ugly". Although the ugly way can work, it will require a lot of maintenance and is error prone because it is used in all the places where we talk to our database.
+An ugly solution in sudo code:
+
+```cs
+model
+
+if (usingSQL == true)
+{
+  open database connection
+  save data
+  get back updated model
+}
+
+if (usingTextFile == true)
+{
+  open text file
+  generate ID
+  save the data
+}
+```
+
+This requires a system which can be used by every form. This makes it very clear what happens.
+The forms do not care where they save the data to, just that it is saved.
+
+So a few questions we need to answer:
+1. How do we get the connection information?
+2. How do we connect to two different data sources to do the same task?
+
+Answers:
+1. Static class (global variables) for data source info, although this takes up memory
+2. An interface (i.e. contract) for data source, to call the data source in the same way
