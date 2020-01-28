@@ -12,6 +12,11 @@ namespace TrackerLibrary.Models
     public class PersonModel
     {
         /// <summary>
+        /// Represents the unique identifier for the prize
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
         /// Represents the first name of the player
         /// </summary>
         public string FirstName { get; set; }
@@ -32,5 +37,14 @@ namespace TrackerLibrary.Models
         /// operations are performed on the number
         /// </summary>
         public string CellphoneNumber { get; set; }
+
+        /// <summary>
+        /// Represents the identifier for the dropdown list
+        /// </summary>
+        public string FullName
+        {
+            get { return $"{ FirstName } { LastName }"; }
+        }
+
     }
 }
