@@ -65,6 +65,7 @@ namespace TrackerLibrary
             foreach (TeamModel team in teams)
             {
                 currentMatchup.Entries.Add(new MatchupEntryModel { TeamCompeting = team });
+                // When there is a bye there will only be 1 entry in the MatchupEntryModel
                 if (byes > 0 || currentMatchup.Entries.Count > 1)
                 {
                     currentMatchup.MatchupRound = 1; // This is the first round, thus hardcoded 1
