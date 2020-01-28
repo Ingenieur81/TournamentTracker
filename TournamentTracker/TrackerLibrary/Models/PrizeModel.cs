@@ -40,6 +40,27 @@ namespace TrackerLibrary.Models
         /// </summary>
         public double PrizePercentage { get; set; }
 
+        /// <summary>
+        /// Represents the identifier for the text box
+        /// 
+        /// </summary>
+        public string PlaceIdentifier
+        {
+            get
+            {
+                string PrizeValue = "";
+                if (PrizeAmount != 0)
+                {
+                    PrizeValue = $"€{ PrizeAmount }";
+                }
+                else
+                {
+                    PrizeValue = $"{ PrizePercentage }%";
+                }
+                return $"{ PlaceNumber }: { PlaceName } - { PrizeValue } ";
+            }
+        }
+
         public PrizeModel()
         {
 

@@ -20,19 +20,24 @@ namespace TrackerUI
         /// </summary>
         private List<PersonModel> availableTeamMembers = GlobalConfig.Connection.GetPerson_All();
         private List<PersonModel> selectedTeamMembers = new List<PersonModel>();
+        private ITeamRequester callingForm;
 
         /// <summary>
         /// Represents the form to create a new team
         /// </summary>
-        public CreateTeamForm()
+        public CreateTeamForm(ITeamRequester caller)
         {
             InitializeComponent();
 
+            callingForm = caller;
             //CreateSampleData();
 
             WireUpLists();
         }
 
+        /// <summary>
+        /// Sample data, not used in production
+        /// </summary>
         private void CreateSampleData()
         {
             availableTeamMembers.Add(new PersonModel { FirstName = "Gertjan", LastName = "Horlings" });
@@ -42,6 +47,9 @@ namespace TrackerUI
             selectedTeamMembers.Add(new PersonModel { FirstName = "Bill", LastName = "Jones" });
         }
 
+        /// <summary>
+        /// Fill the textboxes with the available and selected data
+        /// </summary>
         private void WireUpLists()
         {
             // The datasource needs to be set to null first so the data 
@@ -65,11 +73,6 @@ namespace TrackerUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void addNewMemberBox_Enter(object sender, EventArgs e)
-        {
-            
-        }
-
         private void createMemberButton_Click(object sender, EventArgs e)
         {
             if (ValidateForm())
@@ -98,10 +101,15 @@ namespace TrackerUI
             }
         }
 
+        /// <summary>
+        /// Validates if the values in the form are in the correct format
+        /// </summary>
+        /// <returns>true or false</returns>
         private bool ValidateForm()
         {
             // Just checking if there is something in the fields
             // TODO: make validation more robust, checking @ and . in the email address
+            // TODO: Add fields with error messages behind person input text boxes
             if (firstNameValue.Text.Length == 0)
             {
                 return false;
@@ -125,6 +133,12 @@ namespace TrackerUI
             return true;
         }
 
+        /// <summary>
+        /// Add the selected member to the selected list and
+        /// remove it from the available list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addTeamMemberButton_Click(object sender, EventArgs e)
         {
             /* Casting the SelectedItem object to the specific PersonModel, this is correct
@@ -146,6 +160,12 @@ namespace TrackerUI
             }
         }
 
+        /// <summary>
+        /// Remove the selected member from the selected list and
+        /// add it back to the available list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void removeMemberButton_Click(object sender, EventArgs e)
         {
             PersonModel p = (PersonModel)teamMembersListbox.SelectedItem;
@@ -162,6 +182,11 @@ namespace TrackerUI
             }
         }
 
+        /// <summary>
+        /// Add the team and its members to the tournament
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addTeamButton_Click(object sender, EventArgs e)
         {
             TeamModel t = new TeamModel();
@@ -169,9 +194,11 @@ namespace TrackerUI
             t.TeamName = teamNameValue.Text;
             t.TeamMembers = selectedTeamMembers;
 
-            t = GlobalConfig.Connection.CreateTeam(t);
+            GlobalConfig.Connection.CreateTeam(t);
 
-            // TODO: When not closing form after creation of a team, it should be cleared
+            callingForm.TeamComplete(t);
+
+            this.Close();
         }
     }
 }

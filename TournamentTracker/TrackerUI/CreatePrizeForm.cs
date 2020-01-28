@@ -15,14 +15,16 @@ namespace TrackerUI
 {
     public partial class CreatePrizeForm : Form
     {
+        IPrizeRequester callingForm;
         /// <summary>
         /// Represents a form to create a new prize
         /// for the tournament and add it to the prizes
         /// list in the Create Tournament Form
         /// </summary>
-        public CreatePrizeForm()
+        public CreatePrizeForm(IPrizeRequester caller)
         {
             InitializeComponent();
+            callingForm = caller;
         }
 
         /// <summary>
@@ -40,10 +42,14 @@ namespace TrackerUI
 
                 GlobalConfig.Connection.CreatePrize(model);
 
-                placeNumberValue.Text = "";
-                placeNameValue.Text = "";
-                prizeAmountValue.Text = "0";
-                prizePercentageValue.Text = "0";
+                callingForm.PrizeComplete(model);
+
+                //placeNumberValue.Text = "";
+                //placeNameValue.Text = "";
+                //prizeAmountValue.Text = "0";
+                //prizePercentageValue.Text = "0";
+
+                this.Close();
 
             }
             else
@@ -65,7 +71,7 @@ namespace TrackerUI
 
             if (placeNumberValidNumber == false)
             {
-                // TODO: Add fields with error messages behind input text boxes
+                // TODO: Add fields with error messages behind prize input text boxes
                 output = false;
             }
 

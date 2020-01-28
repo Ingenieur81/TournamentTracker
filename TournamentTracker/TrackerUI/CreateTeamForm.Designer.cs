@@ -1,4 +1,6 @@
-﻿namespace TrackerUI
+﻿using System;
+
+namespace TrackerUI
 {
     partial class CreateTeamForm
     {
@@ -292,6 +294,10 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+
+        private void addNewMemberBox_Enter(object sender, EventArgs e)
+        {
         }
 
         #endregion

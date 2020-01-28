@@ -106,5 +106,14 @@ namespace TrackerLibrary.DataAccess
 
             return model;
         }
+
+        /// <summary>
+        /// Get the team data from the text file
+        /// </summary>
+        /// <returns>The TeamModel data</returns>
+        public List<TeamModel> GetTeam_All()
+        {
+            return TeamsFile.FullFilePath().LoadFile().ConvertToTeamModels(PeopleFile);
+        }
     }
 }

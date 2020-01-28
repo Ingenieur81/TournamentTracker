@@ -124,6 +124,7 @@ namespace TrackerLibrary.DataAccess.TextHelpers
                 {
                     t.TeamMembers.Add(people.Where(x => x.Id == int.Parse(id)).First());
                 }
+
                 output.Add(t);
             }
 
@@ -172,7 +173,7 @@ namespace TrackerLibrary.DataAccess.TextHelpers
             foreach (TeamModel t in models)
             {
 
-                lines.Add($"{ t.Id },{ t.TeamName },{ ConvertPeopleListToString( t.TeamMembers ) }");
+                lines.Add($"{ t.Id },{ t.TeamName },{ ConvertPeopleListToString(t.TeamMembers) }");
             }
 
             File.WriteAllLines(fileName.FullFilePath(), lines);
@@ -187,7 +188,10 @@ namespace TrackerLibrary.DataAccess.TextHelpers
         {
             string output = "";
 
-
+            if (people.Count == 0)
+            {
+                return "";
+            }
 
             foreach (PersonModel p in people)
             {
