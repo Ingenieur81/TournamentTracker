@@ -11,7 +11,7 @@ GO
 
 CREATE TABLE [dbo].[TEAMS](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[TeamName] [nvarchar](50) NOT NULL,
+	[TeamName] [nvarchar](100) NOT NULL,
 CONSTRAINT [PK_TEAMS] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC

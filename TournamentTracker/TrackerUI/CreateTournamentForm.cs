@@ -164,5 +164,49 @@ namespace TrackerUI
                 WireUpLists();
             }
         }
+
+        private void createTournamentButton_Click(object sender, EventArgs e)
+        {
+            // Validate form data
+            decimal fee = 0;
+            bool feeAcceptable = decimal.TryParse(entryFeeValue.Text, out fee);
+
+            if (!feeAcceptable)
+            {
+                // TODO: This is a template for the other message boxes 
+                MessageBox.Show("Entry fee is not a valid number",
+                    "Invalid fee",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+
+            // Create tournament model
+            TournamentModel tm = new TournamentModel();
+
+            tm.TournamentName = tournamentNameValue.Text;
+            tm.EntryFee = fee;
+
+            /* The selectedPrizes is a list and the tm.prizes expects a list
+             * a foreach could be used to put everything form one list
+             * into the other or ...
+             *foreach (PrizeModel prize in selectedPrizes)
+             *{
+             *    tm.Prizes.Add(prize);
+             *}
+             * ... just set the list equal to the each other
+            */
+            tm.Prizes = selectedPrizes;
+            tm.EnteredTeams = selectedTeams;
+
+            // Wire up matchups
+            TournamentLogic.CreateRounds(tm);
+
+            // Create Tournament entry
+            // Create all of the prize entries
+            // Create all of the team entries
+            GlobalConfig.Connection.CreateTournament(tm);
+
+            
+        }
     }
 }

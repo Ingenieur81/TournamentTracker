@@ -14,7 +14,7 @@ CREATE TABLE [dbo].[MATCHUPENTRIES](
 	[MatchupId] [int] NOT NULL,
 	[ParentMatchupId] [int] NOT NULL,
 	[TeamCompetingId] [int] NOT NULL,
-	[Score] [numeric] NOT NULL,
+	[Score] [float] NOT NULL,
 CONSTRAINT [PK_MATCHUPENTRIES] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC

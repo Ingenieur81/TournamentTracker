@@ -11,8 +11,9 @@ GO
 
 CREATE TABLE [dbo].[TOURNAMENTS](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[TournamentName] [nvarchar](100) NOT NULL,
+	[TournamentName] [nvarchar](200) NOT NULL,
 	[EntryFee] [money] NOT NULL,
+	[Active] [bit] NOT NULL,
 CONSTRAINT [PK_TOURNAMENTS] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC

@@ -12,6 +12,11 @@ namespace TrackerLibrary.Models
     public class MatchupEntryModel
     {
         /// <summary>
+        /// Represents the unique identifier for the prize
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
         /// Represents the competing team
         /// </summary>
         public TeamModel TeamCompeting { get; set; }
