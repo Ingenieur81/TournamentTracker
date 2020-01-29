@@ -12,10 +12,13 @@ namespace TrackerLibrary.DataAccess
     {
         // using 'const' for the files to always use the same file 
         // and not allow overwriting the variable
+        // TODO: Refactor private constants, double defined in GlobalConfig
         private const string PrizesFile = "PrizeModels.csv";
         private const string PeopleFile = "PersonModels.csv";
         private const string TeamsFile = "TeamModels.csv";
         private const string TournamentsFile = "TournamentModels.csv";
+        private const string MatchupsFile = "MatchupModels.csv";
+        private const string MatchupEntriesFile = "MatchupEntryModels.csv";
 
         /// <summary>
         /// Saves a prize to the text file
@@ -136,10 +139,15 @@ namespace TrackerLibrary.DataAccess
             }
             model.Id = currentId;
 
+            // Populate matchup ids
+            model.SaveRoundsToFile(MatchupsFile, MatchupEntriesFile);
+
             tournaments.Add(model);
 
             tournaments.SaveToTournamentsFile(TournamentsFile);
             
         }
+
+        
     }
 }

@@ -15,6 +15,15 @@ namespace TrackerLibrary
     /// </summary>
     public static class GlobalConfig
     {
+        // using 'const' for the files to always use the same file 
+        // and not allow overwriting the variable
+        public const string PrizesFile = "PrizeModels.csv";
+        public const string PeopleFile = "PersonModels.csv";
+        public const string TeamsFile = "TeamModels.csv";
+        public const string TournamentsFile = "TournamentModels.csv";
+        public const string MatchupsFile = "MatchupModels.csv";
+        public const string MatchupEntriesFile = "MatchupEntryModels.csv";
+
         public static IDataConnection Connection { get; private set; }
 
         public static void InitializeConnections(DatabaseType db)
