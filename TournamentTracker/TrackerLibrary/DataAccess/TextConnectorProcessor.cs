@@ -156,10 +156,13 @@ namespace TrackerLibrary.DataAccess.TextHelpers
                 {
                     tm.EnteredTeams.Add(teams.Where(x => x.Id == int.Parse(id)).First());
                 }
-                string[] prizeIds = cols[4].Split('|');
-                foreach (string id in prizeIds)
+                if (cols[4].Length > 0)
                 {
-                    tm.Prizes.Add(prizes.Where(x => x.Id == int.Parse(id)).First());
+                    string[] prizeIds = cols[4].Split('|');
+                    foreach (string id in prizeIds)
+                    {
+                        tm.Prizes.Add(prizes.Where(x => x.Id == int.Parse(id)).First());
+                    } 
                 }
 
                 // Get the list of lists of matchups
@@ -290,16 +293,27 @@ namespace TrackerLibrary.DataAccess.TextHelpers
         {
             string[] ids = input.Split('|');
             List<MatchupEntryModel> output = new List<MatchupEntryModel>();
-            List<MatchupEntryModel> entries = GlobalConfig
+            List<string> entries = GlobalConfig
                 .MatchupEntriesFile
                 .FullFilePath()
-                .LoadFile()
-                .ConvertToMatchupEntryModel();
+                .LoadFile(); // Not all matches need to be loaded, just the ones we need
+            List<string> matchingEntries = new List<string>();
 
             foreach (string id in ids)
             {
-                output.Add(entries.Where(x => x.Id == int.Parse(id)).First());
+                foreach (string entry in entries)
+                {
+                    string[] cols = entry.Split(',');
+
+                    if (cols[0] == id)
+                    {
+                        matchingEntries.Add(entry);
+                    }
+                }
             }
+
+            // Only convert the actual needed matching entries to a MatchupEntryModel
+            output = matchingEntries.ConvertToMatchupEntryModel();
 
             return output;
         }
@@ -342,22 +356,45 @@ namespace TrackerLibrary.DataAccess.TextHelpers
 
         private static TeamModel LookupTeamById(int id)
         {
-            List<TeamModel> teams = GlobalConfig
+            List<string> teams = GlobalConfig
                 .TeamsFile.FullFilePath()
-                .LoadFile()
-                .ConvertToTeamModels(GlobalConfig.PeopleFile);
+                .LoadFile(); // Not all matches need to be loaded, just the ones we need
 
-            return teams.Where(x => x.Id == id).First();
+            foreach (string team in teams)
+            {
+                string[] cols = team.Split(',');
+                if (cols[0] == id.ToString())
+                {
+                    List<string> matchingTeams = new List<string>();
+                    matchingTeams.Add(team);
+                    return matchingTeams.ConvertToTeamModels(GlobalConfig.PeopleFile).First();
+                }
+            }
+
+            // No team found, i.e. error
+            return null;
         }
 
         private static MatchupModel LookupMatchupById(int id)
         {
-            List<MatchupModel> matchups = GlobalConfig
+            List<string> matchups = GlobalConfig
                 .MatchupsFile
                 .FullFilePath()
-                .LoadFile()
-                .ConvertToMatchupModels();
-            return matchups.Where(x => x.Id == id).First();
+                .LoadFile(); // Not all matches need to be loaded, just the ones we need
+
+            foreach (string matchup in matchups)
+            {
+                string[] cols = matchup.Split(',');
+                if (cols[0] == id.ToString())
+                {
+                    List<string> matchingMatchups = new List<string>();
+                    matchingMatchups.Add(matchup);
+                    return matchingMatchups.ConvertToMatchupModels().First();
+                }
+            }
+
+            // No matchup found, i.e. error
+            return null;
         }
 
         public static List<MatchupModel> ConvertToMatchupModels(this List<string> lines)
