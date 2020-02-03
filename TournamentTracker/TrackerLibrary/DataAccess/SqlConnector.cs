@@ -17,6 +17,7 @@ namespace TrackerLibrary.DataAccess
 {
     public class SqlConnector : IDataConnection
     {
+        // Refactored
         private const string dbName = "Tournaments";
 
         /// <summary>
@@ -24,7 +25,7 @@ namespace TrackerLibrary.DataAccess
         /// </summary>
         /// <param name="model">The prize information model</param>
         /// <returns>The prize information, including the unique identifier</returns>
-        public PrizeModel CreatePrize(PrizeModel model)
+        public void CreatePrize(PrizeModel model)
         {
             /* 
              * Using 'using' ensures that the closing curly bracket means that the 
@@ -46,12 +47,10 @@ namespace TrackerLibrary.DataAccess
 
                 //Get the value of Id created by the database
                 model.Id = p.Get<int>("@Id");
-
-                return model;
             }
         }
 
-        public PersonModel CreatePerson(PersonModel model)
+        public void CreatePerson(PersonModel model)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(dbName)))
             {
@@ -67,12 +66,10 @@ namespace TrackerLibrary.DataAccess
 
                 //Get the value of Id created by the database
                 model.Id = p.Get<int>("@Id");
-
-                return model;
             }
         }
 
-        public TeamModel CreateTeam(TeamModel model)
+        public void CreateTeam(TeamModel model)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(dbName)))
             {
@@ -96,8 +93,6 @@ namespace TrackerLibrary.DataAccess
 
                     connection.Execute("dbo.spTeamMembers_Insert", p, commandType: CommandType.StoredProcedure);
                 }
-
-                return model;
             }
         }
 
@@ -157,6 +152,8 @@ namespace TrackerLibrary.DataAccess
                 SaveTournamentEntries(connection, model);
 
                 SaveTournamentRounds(connection, model);
+
+                TournamentLogic.UpdateTournamentResults(model);
             }
         }
 

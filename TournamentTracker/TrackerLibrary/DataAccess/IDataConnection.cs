@@ -9,16 +9,16 @@ namespace TrackerLibrary.DataAccess
 {
     /// <summary>
     /// Represents the interface for the dataconnection for each model
-    /// 
+    /// Refactored, returning the model is not required
     /// Interfaces are always public
     /// </summary>
     public interface IDataConnection
     {
-        PrizeModel CreatePrize(PrizeModel model);
+        void CreatePrize(PrizeModel model);
 
-        PersonModel CreatePerson(PersonModel model);
-        
-        TeamModel CreateTeam(TeamModel model);
+        void CreatePerson(PersonModel model);
+
+        void CreateTeam(TeamModel model);
 
         void CreateTournament(TournamentModel model);
 

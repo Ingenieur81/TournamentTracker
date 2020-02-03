@@ -239,44 +239,10 @@ namespace TrackerUI
                 }
             }
 
-            if (teamOneScore > teamTwoScore || teamTwoName.Text == "<Bye>") // High score wins, so e.g. golf is not supported
-            {
-                // Team one wins or has the bye
-                m.Winner = m.Entries[0].TeamCompeting;
-            }
-            else if (teamTwoScore > teamOneScore)
-            {
-                // Team two wins
-                m.Winner = m.Entries[1].TeamCompeting;
-            }
-            else
-            {
-                MessageBox.Show("This is a tie game, marking team 2 (the away team) as the winner");
-                m.Winner = m.Entries[1].TeamCompeting;
-            }
-            // update the winner in the matchup and matchupentries
-            foreach (List<MatchupModel> rounds in tournament.Rounds)
-            {
-                foreach (MatchupModel rm in rounds)
-                {
-                    foreach (MatchupEntryModel me in rm.Entries)
-                    {
-                        if (me.ParentMatchup != null)
-                        {
-                            if (me.ParentMatchup.Id == m.Id)
-                            {
-                                me.TeamCompeting = m.Winner;
-                                GlobalConfig.Connection.UpdateMatchup(rm);
-                            } 
-                        }
-                    }
-                }
-            }
+            TournamentLogic.UpdateTournamentResults(tournament);
 
             // update the dropdown
             LoadMatchups((int)roundDropdown.SelectedItem);
-
-            GlobalConfig.Connection.UpdateMatchup(m);
         }
     }
 }

@@ -10,25 +10,17 @@ namespace TrackerLibrary.DataAccess
 {
     public class TextConnector: IDataConnection
     {
-        // using 'const' for the files to always use the same file 
-        // and not allow overwriting the variable
-        // TODO: Refactor private constants, double defined in GlobalConfig
-        private const string PrizesFile = "PrizeModels.csv";
-        private const string PeopleFile = "PersonModels.csv";
-        private const string TeamsFile = "TeamModels.csv";
-        private const string TournamentsFile = "TournamentModels.csv";
-        private const string MatchupsFile = "MatchupModels.csv";
-        private const string MatchupEntriesFile = "MatchupEntryModels.csv";
-
+        // Refactored
+        
         /// <summary>
         /// Saves a prize to the text file
         /// </summary>
         /// <param name="model">The prize information model</param>
         /// <returns>The prize information, including the unique identifier</returns>
-        public PrizeModel CreatePrize(PrizeModel model)
+        public void CreatePrize(PrizeModel model)
         {
             // Load the text file and convert text to list<PrizeModel>
-            List<PrizeModel> prizes = PrizesFile.FullFilePath().LoadFile().ConvertToPrizeModels();
+            List<PrizeModel> prizes = GlobalConfig.PrizesFile.FullFilePath().LoadFile().ConvertToPrizeModels();
 
             // Find the max ID and add 1 to it
             int currentId = 1;
@@ -43,9 +35,7 @@ namespace TrackerLibrary.DataAccess
 
             // Convert the prizes to list<string>
             // Save the list<string> to the text file
-            prizes.SaveToPrizeFile(PrizesFile);
-
-            return model;
+            prizes.SaveToPrizeFile();
         }
 
         /// <summary>
@@ -53,9 +43,9 @@ namespace TrackerLibrary.DataAccess
         /// </summary>
         /// <param name="model">The person information model</param>
         /// <returns>The person information, including the unique identifier</returns>
-        public PersonModel CreatePerson(PersonModel model)
+        public void CreatePerson(PersonModel model)
         {
-            List<PersonModel> people = PeopleFile.FullFilePath().LoadFile().ConvertToPeopleModels();
+            List<PersonModel> people = GlobalConfig.PeopleFile.FullFilePath().LoadFile().ConvertToPeopleModels();
 
             // Find the max ID and add 1 to it
             int currentId = 1;
@@ -70,9 +60,7 @@ namespace TrackerLibrary.DataAccess
 
             // Convert the people to list<string>
             // Save the list<string> to the text file
-            people.SaveToPeopleFile(PeopleFile);
-
-            return model;
+            people.SaveToPeopleFile();
         }
 
         /// <summary>
@@ -81,7 +69,7 @@ namespace TrackerLibrary.DataAccess
         /// <returns>The PersonModel data</returns>
         public List<PersonModel> GetPerson_All()
         {
-            return PeopleFile.FullFilePath().LoadFile().ConvertToPeopleModels();
+            return GlobalConfig.PeopleFile.FullFilePath().LoadFile().ConvertToPeopleModels();
         }
 
         /// <summary>
@@ -89,9 +77,9 @@ namespace TrackerLibrary.DataAccess
         /// </summary>
         /// <param name="model">The team information model</param>
         /// <returns>The team information, including the unique identifier</returns>
-        public TeamModel CreateTeam(TeamModel model)
+        public void CreateTeam(TeamModel model)
         {
-            List<TeamModel> teams = TeamsFile.FullFilePath().LoadFile().ConvertToTeamModels(PeopleFile);
+            List<TeamModel> teams = GlobalConfig.TeamsFile.FullFilePath().LoadFile().ConvertToTeamModels();
             
             // Find the max ID and add 1 to it
             int currentId = 1;
@@ -106,9 +94,7 @@ namespace TrackerLibrary.DataAccess
 
             // Convert the teams to list<string>
             // Save the list<string> to the text file
-            teams.SaveToTeamsFile(TeamsFile);
-
-            return model;
+            teams.SaveToTeamsFile();
         }
 
         /// <summary>
@@ -117,7 +103,7 @@ namespace TrackerLibrary.DataAccess
         /// <returns>The TeamModel data</returns>
         public List<TeamModel> GetTeam_All()
         {
-            return TeamsFile.FullFilePath().LoadFile().ConvertToTeamModels(PeopleFile);
+            return GlobalConfig.TeamsFile.FullFilePath().LoadFile().ConvertToTeamModels();
         }
 
         /// <summary>
@@ -126,10 +112,10 @@ namespace TrackerLibrary.DataAccess
         /// <param name="model"></param>
         public void CreateTournament(TournamentModel model)
         {
-            List<TournamentModel> tournaments = TournamentsFile
+            List<TournamentModel> tournaments = GlobalConfig.TournamentsFile
                 .FullFilePath()
                 .LoadFile()
-                .ConvertToTournamentModels(TeamsFile, PeopleFile, PrizesFile);
+                .ConvertToTournamentModels();
 
             // Find the max ID and add 1 to it
             int currentId = 1;
@@ -140,20 +126,22 @@ namespace TrackerLibrary.DataAccess
             model.Id = currentId;
 
             // Populate matchup ids
-            model.SaveRoundsToFile(MatchupsFile, MatchupEntriesFile);
+            model.SaveRoundsToFile();
 
             tournaments.Add(model);
 
-            tournaments.SaveToTournamentsFile(TournamentsFile);
-            
+            tournaments.SaveToTournamentsFile();
+
+            TournamentLogic.UpdateTournamentResults(model);
+
         }
 
         public List<TournamentModel> GetTournament_All()
         {
-            return TournamentsFile
+            return GlobalConfig.TournamentsFile
                 .FullFilePath()
                 .LoadFile()
-                .ConvertToTournamentModels(TeamsFile, PeopleFile, PrizesFile);
+                .ConvertToTournamentModels();
         }
 
         public void UpdateMatchup(MatchupModel model)
