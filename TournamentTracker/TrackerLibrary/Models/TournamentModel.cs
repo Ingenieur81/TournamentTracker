@@ -12,6 +12,11 @@ namespace TrackerLibrary.Models
     public class TournamentModel
     {
         /// <summary>
+        /// Fire when the tournament is marked complete
+        /// </summary>
+        public event EventHandler<DateTime> OnTournamentComplete;
+
+        /// <summary>
         /// Represents the unique identifier for the tournament
         /// </summary>
         public int Id { get; set; }
@@ -44,5 +49,15 @@ namespace TrackerLibrary.Models
         /// all rounds in this tournament
         /// </summary>
         public List<List<MatchupModel>> Rounds { get; set; } = new List<List<MatchupModel>>();
+
+        /// <summary>
+        /// Invoke the event
+        /// </summary>
+        public void CompleteTournament()
+        {
+            // The '?' means if it is available (i.e. there are subscribers to the event) do the extension. 
+            // If not, don't do anything
+            OnTournamentComplete?.Invoke(this, DateTime.Now);
+        }
     }
 }

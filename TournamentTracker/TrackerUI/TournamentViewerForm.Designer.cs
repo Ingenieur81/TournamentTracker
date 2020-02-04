@@ -43,6 +43,7 @@
             this.teamTwoName = new System.Windows.Forms.Label();
             this.versusLabel = new System.Windows.Forms.Label();
             this.scoreButton = new System.Windows.Forms.Button();
+            this.roundIsPlayedLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // headerLabel
@@ -108,7 +109,7 @@
             this.matchupListBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.matchupListBox.FormattingEnabled = true;
             this.matchupListBox.ItemHeight = 30;
-            this.matchupListBox.Location = new System.Drawing.Point(112, 226);
+            this.matchupListBox.Location = new System.Drawing.Point(101, 226);
             this.matchupListBox.Name = "matchupListBox";
             this.matchupListBox.Size = new System.Drawing.Size(354, 242);
             this.matchupListBox.TabIndex = 5;
@@ -199,12 +200,23 @@
             this.scoreButton.UseVisualStyleBackColor = true;
             this.scoreButton.Click += new System.EventHandler(this.scoreButton_Click);
             // 
+            // roundIsPlayedLabel
+            // 
+            this.roundIsPlayedLabel.AutoSize = true;
+            this.roundIsPlayedLabel.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.roundIsPlayedLabel.ForeColor = System.Drawing.Color.Red;
+            this.roundIsPlayedLabel.Location = new System.Drawing.Point(134, 311);
+            this.roundIsPlayedLabel.Name = "roundIsPlayedLabel";
+            this.roundIsPlayedLabel.Size = new System.Drawing.Size(0, 37);
+            this.roundIsPlayedLabel.TabIndex = 14;
+            // 
             // TournamentViewerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(557, 658);
+            this.Controls.Add(this.roundIsPlayedLabel);
             this.Controls.Add(this.scoreButton);
             this.Controls.Add(this.versusLabel);
             this.Controls.Add(this.teamTwoScoreValue);
@@ -245,6 +257,7 @@
         private System.Windows.Forms.Label teamTwoName;
         private System.Windows.Forms.Label versusLabel;
         private System.Windows.Forms.Button scoreButton;
+        private System.Windows.Forms.Label roundIsPlayedLabel;
     }
 }
 
